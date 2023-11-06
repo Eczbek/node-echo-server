@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>test</title>
+
+		<style></style>
+	</head>
+
+	<body>
+		<script>
+			const url = `${location.protocol.replace('http', 'ws')}//${location.host}`;
+
+			let socket = new WebSocket(url);
+
+			socket.addEventListener('open', () => console.log('connected'));
+
+			socket.addEventListener('close', () => console.log('disconnected'));
+
+			socket.addEventListener('message', ({ data: buffer }) => console.log(JSON.parse(buffer)));
+
+			const send = (data) => socket.send(JSON.stringify(data));
+
+			const reconnect = () => socket = new WebSocket(url);
+		</script>
+	</body>
+</html>
